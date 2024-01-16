@@ -1,0 +1,87 @@
+STEPS & Command used :-
+
+1. VPC and SUBNET Creation and launch VM's :-
+ 
+    1.  Creating 1-VPC and 3-Subnets (2-public & 1-private) ===>> [2-pub for ALB &p ublic VM AND 1-Private for Application-Servere]
+    2.  Create 1 – Internet Gateway and Attach to the VPC
+    3.  Create a Route Table & add inbound rule for Internet gateway and associate with Public Subnet
+    4.  Create a NAT Gateway in Public Subnet
+    5.  Create Elastic IP and assign it to NAT Gateway
+    6.  Create another Route Table & add rule for NAT gateway and associate with Private-Subnet
+    7.  Create Security Groups for VM’s (allow port 22,80,443 & RDS)
+    8.  Now Launch 2-EC2 instances (1-public & 1-Private subnet)
+    9.  Enable Settings for VPC (DNS hostnames) & for Public-Subnet (auto-assign public IP) 
+  
+
+
+2. Create a IAM Role (give permissions: RDSfull, S3full & DynamoDBfull)
+
+3. Modify IAM role for Application-Server
+
+4. Create RDS MySQL Database in Our VPC with new PRIVATE-SUBNET
+
+5. Create S3 Bucket with NO-Public acess
+
+6. Create DynamoDB Table with Same NAME & Partition-Key on Code
+
+7. Create ALB on Public-Subnets and Target Group with Application-server
+
+8. Create Route53 Host-Zone and Add Name-Servers to your Domain Name
+
+9. ADD Record on Hosted zone for ALB DNS
+
+
+10. Connect to Public EC2 instance and Login into Application-Servere Instance by SSH :-
+      
+      $ sudo apt upadate 
+      $ sudo nano <key-name.pem>    --> (copy the pem key)
+      $ ls –l   
+      $ sudo chmod 400 <key-name.pem>
+      $ sudo ssh –i  <key-name.pem>  username@Ip_address  --> (login)
+
+     
+11. Connecting Application-server to RDS Database :-
+
+        $ sudo apt-get update   
+        $ subo apt-get install mysql-server mysql-client -y
+
+        $ sudo mysql -h <RDS-endpoint> -u <username> -p     ---> (enter password)
+
+           mysql > SHOW DATABASES;
+                 > USE projectdb;
+                 > SHOW TABLES;
+                 > CREATE TABLE employee (
+                   emp_id VARCHAR(25),
+                   first_name VARCHAR(25),
+                   last_name VARCHAR(25),
+                   primary_skills VARCHAR(25),
+                   location VARCHAR(25)
+                   );
+
+                 > DESCRIBE employee;
+                 > EXIT;
+
+  
+12. Clone our Application from GitHub Repo to Application server :-
+
+         $ ls
+         $ git clone <url-of-repo>
+         $ cd <code_dir>
+         $ sudo nano config.py   -----> (edit config file)
+
+
+13. Installing code Dependeices on Applicatiop server and Run the Application :-
+   
+           $ sudo apt-get install python3 -y
+           $ sudo apt-get install python3-flask -y
+           $ sudo apt-get install python3-pymysql -y 
+           $ sudo apt-get install python3-boto3 -y
+         
+           $ sudo python3 EmpApp.py      --------> (now Application is Running)
+
+
+14. Go to ALB and copy ALB DNS Endpoint and Browse it! OR Use Domain Name! 
+
+ 
+      
+     
