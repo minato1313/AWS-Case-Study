@@ -74,10 +74,15 @@ resource "aws_route" "route_to_internet" {
   gateway_id             = aws_internet_gateway.my_igw.id
 }
 
+# Create Elastic IP for NAT Gateway
+resource "aws_eip" "nat_gateway_eip" {
+  vpc      = true
+}
+
 # Create NAT Gateway in the public subnet
 resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_instance.my_instance.public_ip
-  subnet_id     = aws_subnet.public_subnet.id
+  allocation_id = aws_eip.nat_gateway_eip.id
+  subnet_id     = aws_subnet.public_subnet_1.id
 }
 
 # Create a private route table
