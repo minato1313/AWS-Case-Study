@@ -66,6 +66,10 @@ resource "aws_route_table_association" "public_subnet_association" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.public_subnet_route_table.id
 }
+resource "aws_route_table_association" "public_subnet_association_2" {
+  subnet_id      = aws_subnet.public_subnet_2.id
+  route_table_id = aws_route_table.public_subnet_route_table.id
+}
 
 # Create a route for the public subnet
 resource "aws_route" "route_to_internet" {
