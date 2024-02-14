@@ -76,7 +76,6 @@ resource "aws_route" "route_to_internet" {
 
 # Create Elastic IP for NAT Gateway
 resource "aws_eip" "nat_gateway_eip" {
-  vpc      = true
 }
 
 # Create NAT Gateway in the public subnet
