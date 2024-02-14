@@ -10,6 +10,8 @@ resource "aws_security_group" "bastion_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Open SSH access to the world (for demonstration purposes, consider restricting to specific IPs)
   }
+ tags = {
+    Name = "BastionSG"
 }
 
 # Launch the Bastion host in the public subnet
@@ -47,6 +49,8 @@ resource "aws_security_group" "private_instance_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]  # Allow outbound traffic to the internet (for demonstration purposes, consider restricting)
   }
+ tags = {
+    Name = "Private-Instance-SG"
 }
 
 # Launch the private instance in the private subnet
