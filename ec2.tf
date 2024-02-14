@@ -10,17 +10,19 @@ resource "aws_security_group" "bastion_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Open SSH access to the world (for demonstration purposes, consider restricting to specific IPs)
   }
- tags = {
+
+  tags = {
     Name = "BastionSG"
+  }
 }
 
 # Launch the Bastion host in the public subnet
 resource "aws_instance" "bastion_host" {
-  ami           = "ami-xxxxxxxxxxxxxxxx"  # Specify your desired AMI ID
+  ami           = "ami-01e82af4e524a0aa3"  # Specify your desired AMI ID
   instance_type = "t2.micro"  # Specify your desired instance type
-  key_name      = "your-key-pair"  # Specify your key pair name
+  key_name      = "virginia"  # Specify your key pair name
 
-  subnet_id   = aws_subnet.public_subnet_1.id
+  subnet_id          = aws_subnet.public_subnet_1.id
   security_group_ids = [aws_security_group.bastion_sg.id]
 
   tags = {
@@ -40,7 +42,6 @@ resource "aws_security_group" "private_instance_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    security_group_ids = [aws_security_group.private_instance_sg.id]
   }
 
   egress {
@@ -49,15 +50,17 @@ resource "aws_security_group" "private_instance_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]  # Allow outbound traffic to the internet (for demonstration purposes, consider restricting)
   }
- tags = {
+
+  tags = {
     Name = "Private-Instance-SG"
+  }
 }
 
 # Launch the private instance in the private subnet
 resource "aws_instance" "private_instance" {
-  ami           = "ami-xxxxxxxxxxxxxxxx"  # Specify your desired AMI ID
+  ami           = "ami-01e82af4e524a0aa3"  # Specify your desired AMI ID
   instance_type = "t2.micro"  # Specify your desired instance type
-  key_name      = "your-key-pair"  # Specify your key pair name
+  key_name      = "virginia"  # Specify your key pair name
 
   subnet_id          = aws_subnet.private_subnet.id
   security_group_ids = [aws_security_group.private_instance_sg.id]
