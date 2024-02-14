@@ -22,8 +22,8 @@ resource "aws_instance" "bastion_host" {
   instance_type = "t2.micro"  # Specify your desired instance type
   key_name      = "virginia"  # Specify your key pair name
 
-  subnet_id          = aws_subnet.public_subnet_1.id
-  security_group_ids = [aws_security_group.bastion_sg.id]
+  subnet_id            = aws_subnet.public_subnet_1.id
+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
 
   tags = {
     Name = "BastionHost"
@@ -62,8 +62,8 @@ resource "aws_instance" "private_instance" {
   instance_type = "t2.micro"  # Specify your desired instance type
   key_name      = "virginia"  # Specify your key pair name
 
-  subnet_id          = aws_subnet.private_subnet.id
-  security_group_ids = [aws_security_group.private_instance_sg.id]
+  subnet_id            = aws_subnet.private_subnet.id
+  vpc_security_group_ids = [aws_security_group.private_instance_sg.id]
 
   tags = {
     Name = "PrivateInstance"
