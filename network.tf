@@ -21,7 +21,7 @@ resource "aws_subnet" "public_subnet_1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "PublicSubnet"
+    Name = "PublicSubnet-1"
   }
 }
 resource "aws_subnet" "public_subnet_2" {
@@ -31,7 +31,7 @@ resource "aws_subnet" "public_subnet_2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "PublicSubnet"
+    Name = "PublicSubnet-2"
   }
 }
 # Create private subnet
