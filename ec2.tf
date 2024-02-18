@@ -18,7 +18,7 @@ resource "aws_security_group" "bastion_sg" {
 
 # Launch the Bastion host in the public subnet
 resource "aws_instance" "bastion_host" {
-  ami           = "ami-01e82af4e524a0aa3"  # Specify your desired AMI ID
+  ami           = "ami-0c7217cdde317cfec"  # Specify your desired AMI ID
   instance_type = "t2.micro"  # Specify your desired instance type
   key_name      = "virginia"  # Specify your key pair name
 
@@ -58,7 +58,7 @@ resource "aws_security_group" "private_instance_sg" {
 
 # Launch the private instance in the private subnet
 resource "aws_instance" "private_instance" {
-  ami           = "ami-01e82af4e524a0aa3"  # Specify your desired AMI ID
+  ami           = "ami-0c7217cdde317cfec"  # Specify your desired AMI ID
   instance_type = "t2.micro"  # Specify your desired instance type
   key_name      = "virginia"  # Specify your key pair name
 
